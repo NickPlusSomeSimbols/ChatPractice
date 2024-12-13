@@ -49,7 +49,7 @@ public class SimpleUserService : ISimpleUserService
     }
     public Result ClearTable()
     {
-        //_db.Database.ExecuteSqlRaw($"TRUNCATE TABLE public.\"Users\"");
+        _db.Database.ExecuteSqlRaw($"TRUNCATE TABLE public.\"Users\"");
 
         return Result.Success();
     }
