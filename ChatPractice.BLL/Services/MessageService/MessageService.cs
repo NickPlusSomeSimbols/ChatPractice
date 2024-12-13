@@ -1,7 +1,9 @@
 ﻿using Ardalis.Result;
 using ChatPractice.DAL;
 using ChatPractice.DAL.Models;
+using Microsoft.EntityFrameworkCore;
 using System.Diagnostics;
+using System.Text;
 
 namespace ChatPractice.BLL.Services.MessageService;
 
@@ -31,5 +33,24 @@ public class MessageService : IMessageService
         await _AppDbContext.SaveChangesAsync();
 
         return Result.Success();
+    }
+    public async Task<int> GetAll()
+    {
+        var messages = await _AppDbContext.Messages.ToListAsync();
+
+        return messages.Count;
+    }
+    public async Task<string> GetAllFirstLetters()
+    {
+        var messages = await _AppDbContext.Messages.ToListAsync();
+
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.Append(string.Empty);
+        foreach (var message in messages)
+        {
+            stringBuilder.Append(message.Text[0]).Append(' ');
+        }
+
+        return stringBuilder.ToString();
     }
 }

@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace DocketTest_1.Controllers;
 [ApiController]
-[Route("api")]
+[Route("api/[controller]")]
 public class MessageController : ControllerBase
 {
     private readonly ILogger<MessageController> _logger;
@@ -16,11 +16,21 @@ public class MessageController : ControllerBase
         _messageService = messageService;
     }
 
-    [HttpPost("[controller]/Create")]
+    [HttpPost("Create")]
     public async Task<Result> Create(int amount)
     {
         await _messageService.Create(amount);
 
         return Result.Success();
+    }
+    [HttpPost("GetAll")]
+    public async Task<int> GetAll()
+    {
+        return await _messageService.GetAll();
+    }
+    [HttpPost("etAllFirstLetters")]
+    public async Task<string> GetAllFirstLetters()
+    {
+        return await _messageService.GetAllFirstLetters();
     }
 }

@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace DocketTest_1.Controllers;
 [ApiController]
-[Route("api")]
+[Route("api/[controller]")]
 public class SimpleUserController : ControllerBase
 {
     private readonly ILogger<SimpleUserController> _logger;
@@ -23,21 +23,21 @@ public class SimpleUserController : ControllerBase
 
         return Result.Success();
     }
-    [HttpPost("[controller]/CreateRange")]
+    [HttpPost("CreateRange")]
     public async Task<Result> CreateRange(int amount)
     {
         await _simpleUserService.CreateRange(amount);
 
         return Result.Success();
     }
-    [HttpPost("[controller]/ClearTable")]
+    [HttpPost("ClearTable")]
     public Result ClearTable()
     {
         _simpleUserService.ClearTable();
 
         return Result.Success();
     }
-    [HttpPost("[controller]/GetAll")]
+    [HttpPost("GetAll")]
     public async Task<Result> GetAll()
     {
         var users = await _simpleUserService.GetAll();
