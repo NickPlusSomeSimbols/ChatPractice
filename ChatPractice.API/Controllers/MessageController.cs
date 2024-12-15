@@ -17,20 +17,10 @@ public class MessageController : ControllerBase
     }
 
     [HttpPost("Create")]
-    public async Task<Result> Create(int amount)
+    public async Task<Result> Create(long userId)
     {
-        await _messageService.Create(amount);
+        await _messageService.SendMessage(userId);
 
         return Result.Success();
-    }
-    [HttpPost("GetAll")]
-    public async Task<int> GetAll()
-    {
-        return await _messageService.GetAll();
-    }
-    [HttpPost("etAllFirstLetters")]
-    public async Task<string> GetAllFirstLetters()
-    {
-        return await _messageService.GetAllFirstLetters();
     }
 }

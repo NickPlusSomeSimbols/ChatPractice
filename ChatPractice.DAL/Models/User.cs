@@ -1,8 +1,11 @@
+using BelvedereFood.DAL.Models;
+
 namespace ChatPractice.DAL.Models;
 public class User : BaseModel
 {
-    public string? Email { get; set; }
-    public string? Name { get; set; }
-    public int Age { get; set; }
+    public string Email { get; set; } = default!;
+    public string Name { get; set; } = default!;
+    public string PasswordHash { get; set; } = default!;
+    public ICollection<Conversation>? DialogueSessions{ get; set; }
 }
 
