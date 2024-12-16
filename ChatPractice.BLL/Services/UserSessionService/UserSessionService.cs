@@ -2,12 +2,13 @@
 using ChatPractice.DAL;
 using ChatPractice.DAL.Models;
 using ChatPractice.DTO;
+using ChatPractice.DTO.User;
 using ChatPractice.DTO.UserSession;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using System.Diagnostics;
 
-namespace ChatPractice.BLL.Services.SessionService;
+namespace ChatPractice.BLL.Services.UserSessionService;
 
 public class UserSessionService : IUserSessionService
 {
@@ -16,6 +17,10 @@ public class UserSessionService : IUserSessionService
     {
         _db = db;
     }
+    public User CurrentUser;
+
+    User IUserSessionService.CurrentUser { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+
     public async Task<Result> Register(RegisterDto dto)
     {
         throw new NotImplementedException();
@@ -29,6 +34,8 @@ public class UserSessionService : IUserSessionService
         {
             return Result.Success("Authentication failed");
         }
+
+        return Result.Success();
     }
 
     public Task<Result> Logout()
@@ -36,4 +43,8 @@ public class UserSessionService : IUserSessionService
         throw new NotImplementedException();
     }
 
+    public Task<UserDto> GetByToken(string token)
+    {
+        throw new NotImplementedException();
+    }
 }

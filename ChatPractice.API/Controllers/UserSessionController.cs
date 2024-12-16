@@ -1,5 +1,5 @@
 using Ardalis.Result;
-using ChatPractice.BLL.Services.SessionService;
+using ChatPractice.BLL.Services.UserSessionService;
 using ChatPractice.BLL.Services.UserService;
 using ChatPractice.DTO;
 using ChatPractice.DTO.UserSession;
