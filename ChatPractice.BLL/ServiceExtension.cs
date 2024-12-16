@@ -15,5 +15,7 @@ public static class ServiceExtension
         services.AddScoped<IUserSessionService, UserSessionService>();
         services.AddScoped<IMessageService, MessageService>();
         services.AddScoped<IConversationService, ConversationService>();
+
+        services.AddScoped<IConfigurationService, ConfigurationService>();
     }
 }
