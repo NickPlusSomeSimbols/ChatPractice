@@ -17,6 +17,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\ChatPractice.DAL\ChatPractice.DAL.csproj" />
+    <ProjectReference Include="..\ChatPractice.DTO\ChatPractice.DTO.csproj" />
   </ItemGroup>
 
 </Project>
