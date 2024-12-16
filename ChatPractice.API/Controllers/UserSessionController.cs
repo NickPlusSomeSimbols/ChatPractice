@@ -18,19 +18,15 @@ public class UserSessionController : ControllerBase
     }
 
     [HttpPost("Register")]
-    public async Task<Result> Register(RegisterDto dto)
+    public async Task<Result<string>> Register(RegisterDto dto)
     {
-        await _userSessionService.Register(dto);
-
-        return Result.Success();
+        return await _userSessionService.Register(dto);
     }
 
     [HttpPost("Login")]
-    public async Task<Result> Login(LoginDto dto)
+    public async Task<Result<string>> Login(LoginDto dto)
     {
-        await _userSessionService.Login(dto);
-
-        return Result.Success();
+        return await _userSessionService.Login(dto);
     }
 
     [HttpPost("Logout")]
