@@ -27,6 +27,6 @@ public class SessionService : ISessionService
 
     public Task<Result> Register()
     {
-        throw new NotImplementedException();
+        
     }
 }

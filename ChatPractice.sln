@@ -9,7 +9,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ChatPractice.BLL", "ChatPra
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ChatPractice.API", "ChatPractice.API\ChatPractice.API.csproj", "{1C2A885D-43DA-4E90-BD6C-14650CB0DF74}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChatPractice.Blazor", "ChatPractice.Blazor\ChatPractice.Blazor.csproj", "{D751973B-72BF-4B03-9716-CC572F9B6483}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ChatPractice.Blazor", "ChatPractice.Blazor\ChatPractice.Blazor.csproj", "{D751973B-72BF-4B03-9716-CC572F9B6483}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChatPractice.DTO", "ChatPractice.DTO\ChatPractice.DTO.csproj", "{0BC158C7-8A84-486D-A889-6AE04AFDEC80}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{D751973B-72BF-4B03-9716-CC572F9B6483}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D751973B-72BF-4B03-9716-CC572F9B6483}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D751973B-72BF-4B03-9716-CC572F9B6483}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0BC158C7-8A84-486D-A889-6AE04AFDEC80}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0BC158C7-8A84-486D-A889-6AE04AFDEC80}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0BC158C7-8A84-486D-A889-6AE04AFDEC80}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0BC158C7-8A84-486D-A889-6AE04AFDEC80}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

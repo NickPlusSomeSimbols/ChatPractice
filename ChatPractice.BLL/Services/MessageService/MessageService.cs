@@ -9,10 +9,10 @@ namespace ChatPractice.BLL.Services.MessageService;
 
 public class MessageService : IMessageService
 {
-    private readonly AppDbContext _AppDbContext;
-    public MessageService(AppDbContext AppDbContext)
+    private readonly AppDbContext _db;
+    public MessageService(AppDbContext db)
     {
-        _AppDbContext = AppDbContext;
+        _db = db;
     }
 
     public Task<Result> SendMessage(long userId)

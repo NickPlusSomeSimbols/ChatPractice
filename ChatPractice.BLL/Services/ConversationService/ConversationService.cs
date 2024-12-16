@@ -7,10 +7,10 @@ namespace ChatPractice.BLL.Services.ConversationService;
 
 public class ConversationService : IConversationService
 {
-    private readonly AppDbContext _AppDbContext;
-    public ConversationService(AppDbContext AppDbContext)
+    private readonly AppDbContext _db;
+    public ConversationService(AppDbContext db)
     {
-        _AppDbContext = AppDbContext;
+        _db = db;
     }
 
     public Task<Result<List<Conversation>>> ListConversations()
