@@ -9,24 +9,29 @@ using System.Diagnostics;
 
 namespace ChatPractice.BLL.Services.SessionService;
 
-public class SessionService : ISessionService
+public class UserSessionService : IUserSessionService
 {
     private readonly AppDbContext _db;
-    public SessionService(AppDbContext db)
+    public UserSessionService(AppDbContext db)
     {
         _db = db;
     }
-    public Task<Result> Register(RegisterDto dto)
+    public async Task<Result> Register(RegisterDto dto)
     {
         throw new NotImplementedException();
     }
 
-    public Task<Result<string>> LogIn(LoginDto dto)
+    public async Task<Result<string>> Login(LoginDto dto)
     {
-        throw new NotImplementedException();
+        var user = await _db.Users.FirstOrDefaultAsync(x=>x.Email == dto.Email);
+
+        if (user == null)
+        {
+            return Result.Success("Authentication failed");
+        }
     }
 
-    public Task<Result> LogOut()
+    public Task<Result> Logout()
     {
         throw new NotImplementedException();
     }

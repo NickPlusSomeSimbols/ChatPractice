@@ -10,7 +10,7 @@ public static class ServiceExtension
     public static void ConfigureServices(this IServiceCollection services)
     {
         services.AddScoped<IUserService, UserService>();
-        services.AddScoped<ISessionService, SessionService>();
+        services.AddScoped<IUserSessionService, UserSessionService>();
         services.AddScoped<IMessageService, MessageService>();
         services.AddScoped<IConversationService, ConversationService>();
     }

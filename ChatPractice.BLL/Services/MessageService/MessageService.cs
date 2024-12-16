@@ -15,7 +15,7 @@ public class MessageService : IMessageService
         _db = db;
     }
 
-    public Task<Result> SendMessage(long userId)
+    public async Task<Result> SendMessage(long userId)
     {
         throw new NotImplementedException();
     }

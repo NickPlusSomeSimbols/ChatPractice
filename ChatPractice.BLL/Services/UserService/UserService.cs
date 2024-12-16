@@ -14,9 +14,4 @@ public class UserService : IUserService
     {
         _db = db;
     }
-
-    public Task<Result<List<Conversation>>> GetAllDialogues()
-    {
-        throw new NotImplementedException();
-    }
 }
