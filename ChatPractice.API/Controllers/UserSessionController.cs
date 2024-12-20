@@ -4,6 +4,8 @@ using ChatPractice.BLL.Services.UserService;
 using ChatPractice.DTO;
 using ChatPractice.DTO.UserSession;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authorization;
+using ChatPractice.BLL.Attributes;
 
 namespace ChatPractice.API.Controllers;
 [ApiController]
@@ -17,12 +19,14 @@ public class UserSessionController : ControllerBase
         _userSessionService = userSessionService;
     }
 
+    [SkipPermissionCheck]
     [HttpPost("Register")]
     public async Task<Result<string>> Register(RegisterDto dto)
     {
         return await _userSessionService.Register(dto);
     }
 
+    [SkipPermissionCheck]
     [HttpPost("Login")]
     public async Task<Result<string>> Login(LoginDto dto)
     {

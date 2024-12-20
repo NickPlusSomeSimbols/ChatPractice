@@ -43,16 +43,6 @@ namespace ChatPractice.DAL.Migrations
                 nullable: false,
                 defaultValue: false);
 
-            migrationBuilder.AlterColumn<long>(
-                name: "ConversationId",
-                table: "Messages",
-                type: "bigint",
-                nullable: false,
-                defaultValue: 0L,
-                oldClrType: typeof(long),
-                oldType: "bigint",
-                oldNullable: true);
-
             migrationBuilder.AddColumn<bool>(
                 name: "IsDeleted",
                 table: "Messages",
@@ -112,8 +102,7 @@ namespace ChatPractice.DAL.Migrations
                 table: "Messages",
                 column: "ConversationId",
                 principalTable: "Conversations",
-                principalColumn: "Id",
-                onDelete: ReferentialAction.Cascade);
+                principalColumn: "Id");
         }
 
         /// <inheritdoc />
@@ -154,14 +143,6 @@ namespace ChatPractice.DAL.Migrations
                 name: "ConversationsId",
                 table: "ConversationUser",
                 newName: "DialogueSessionsId");
-
-            migrationBuilder.AlterColumn<long>(
-                name: "ConversationId",
-                table: "Messages",
-                type: "bigint",
-                nullable: true,
-                oldClrType: typeof(long),
-                oldType: "bigint");
 
             migrationBuilder.AddColumn<long>(
                 name: "DialogSessionId",

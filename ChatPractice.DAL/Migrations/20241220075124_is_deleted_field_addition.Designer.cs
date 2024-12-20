@@ -12,7 +12,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace ChatPractice.DAL.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20241216073503_is_deleted_field_addition")]
+    [Migration("20241220075124_is_deleted_field_addition")]
     partial class is_deleted_field_addition
     {
         /// <inheritdoc />
@@ -77,7 +77,7 @@ namespace ChatPractice.DAL.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
 
-                    b.Property<long>("ConversationId")
+                    b.Property<long?>("ConversationId")
                         .HasColumnType("bigint");
 
                     b.Property<bool>("IsDeleted")
@@ -156,11 +156,11 @@ namespace ChatPractice.DAL.Migrations
 
             modelBuilder.Entity("ChatPractice.DAL.Models.Message", b =>
                 {
-                    b.HasOne("BelvedereFood.DAL.Models.Conversation", null)
+                    b.HasOne("BelvedereFood.DAL.Models.Conversation", "Conversation")
                         .WithMany("Messages")
-                        .HasForeignKey("ConversationId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("ConversationId");
+
+                    b.Navigation("Conversation");
                 });
 
             modelBuilder.Entity("ConversationUser", b =>

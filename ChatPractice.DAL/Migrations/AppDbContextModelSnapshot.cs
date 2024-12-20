@@ -74,7 +74,7 @@ namespace ChatPractice.DAL.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
 
-                    b.Property<long>("ConversationId")
+                    b.Property<long?>("ConversationId")
                         .HasColumnType("bigint");
 
                     b.Property<bool>("IsDeleted")
@@ -153,11 +153,11 @@ namespace ChatPractice.DAL.Migrations
 
             modelBuilder.Entity("ChatPractice.DAL.Models.Message", b =>
                 {
-                    b.HasOne("BelvedereFood.DAL.Models.Conversation", null)
+                    b.HasOne("BelvedereFood.DAL.Models.Conversation", "Conversation")
                         .WithMany("Messages")
-                        .HasForeignKey("ConversationId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("ConversationId");
+
+                    b.Navigation("Conversation");
                 });
 
             modelBuilder.Entity("ConversationUser", b =>
