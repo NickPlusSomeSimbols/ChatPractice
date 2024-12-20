@@ -52,6 +52,7 @@ public class UserSessionService : IUserSessionService
     public async Task<Result<string>> Login(LoginDto dto)
     {
         var user = await _db.Users.FirstOrDefaultAsync(x => x.Email == dto.Email);
+
         if (user == null)
         {
             return Result.NotFound("User not found");
