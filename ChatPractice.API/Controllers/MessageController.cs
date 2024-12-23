@@ -14,10 +14,10 @@ public class MessageController : ControllerBase
         _messageService = messageService;
     }
 
-    [HttpPost("Create")]
-    public async Task<Result> Create(long userId)
+    [HttpPost("SendMessage")]
+    public async Task<Result> SendMessage(long recieverId)
     {
-        await _messageService.SendMessage(userId);
+        await _messageService.SendMessage(recieverId);
 
         return Result.Success();
     }
