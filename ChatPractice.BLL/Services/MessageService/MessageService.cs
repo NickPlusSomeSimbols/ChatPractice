@@ -1,9 +1,5 @@
 ﻿using Ardalis.Result;
 using ChatPractice.DAL;
-using ChatPractice.DAL.Models;
-using Microsoft.EntityFrameworkCore;
-using System.Diagnostics;
-using System.Text;
 
 namespace ChatPractice.BLL.Services.MessageService;
 

@@ -1,6 +1,5 @@
 ﻿using Ardalis.Result;
 using BelvedereFood.DAL.Models;
-using ChatPractice.BLL.Attributes;
 using ChatPractice.BLL.Mappers;
 using ChatPractice.DAL;
 using ChatPractice.DAL.Models;
