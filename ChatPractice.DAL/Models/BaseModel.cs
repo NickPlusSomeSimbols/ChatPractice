@@ -5,4 +5,5 @@ public class BaseModel
 {
     [Key]
     public long Id { get; set; }
+    public bool IsDeleted{ get; set; }
 }

@@ -1,4 +1,5 @@
 using ChatPractice.BLL;
+using ChatPractice.BLL.Services.Middlewares;
 using ChatPractice.DAL;
 using Microsoft.EntityFrameworkCore;
 
@@ -26,7 +27,10 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
+app.UseAuthentication();
 app.UseAuthorization();
+
+app.UseMiddleware<UserAuthorizationMiddleware>();
 
 app.MapControllers();
 

@@ -1,9 +1,5 @@
 ﻿using Ardalis.Result;
 using ChatPractice.DAL;
-using ChatPractice.DAL.Models;
-using Microsoft.EntityFrameworkCore;
-using System.Diagnostics;
-using System.Text;
 
 namespace ChatPractice.BLL.Services.MessageService;
 
@@ -15,7 +11,7 @@ public class MessageService : IMessageService
         _db = db;
     }
 
-    public Task<Result> SendMessage(long userId)
+    public async Task<Result> SendMessage(long recieverId)
     {
         throw new NotImplementedException();
     }

@@ -2,24 +2,22 @@ using Ardalis.Result;
 using ChatPractice.BLL.Services.MessageService;
 using Microsoft.AspNetCore.Mvc;
 
-namespace DocketTest_1.Controllers;
+namespace ChatPractice.API.Controllers;
 [ApiController]
 [Route("api/[controller]")]
 public class MessageController : ControllerBase
 {
-    private readonly ILogger<MessageController> _logger;
     private readonly IMessageService _messageService;
 
-    public MessageController(ILogger<MessageController> logger, IMessageService messageService)
+    public MessageController(IMessageService messageService)
     {
-        _logger = logger;
         _messageService = messageService;
     }
 
-    [HttpPost("Create")]
-    public async Task<Result> Create(long userId)
+    [HttpPost("SendMessage")]
+    public async Task<Result> SendMessage(long recieverId)
     {
-        await _messageService.SendMessage(userId);
+        await _messageService.SendMessage(recieverId);
 
         return Result.Success();
     }

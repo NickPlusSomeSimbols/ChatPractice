@@ -3,6 +3,7 @@ using System;
 using ChatPractice.DAL;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace ChatPractice.DAL.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20241220075124_is_deleted_field_addition")]
+    partial class is_deleted_field_addition
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -35,9 +38,7 @@ namespace ChatPractice.DAL.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("IsDeleted");
-
-                    b.ToTable("conversation", (string)null);
+                    b.ToTable("Conversations");
                 });
 
             modelBuilder.Entity("BelvedereFood.DAL.Models.UserSession", b =>
@@ -63,11 +64,9 @@ namespace ChatPractice.DAL.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("IsDeleted");
-
                     b.HasIndex("UserId");
 
-                    b.ToTable("user_session", (string)null);
+                    b.ToTable("UserSessions");
                 });
 
             modelBuilder.Entity("ChatPractice.DAL.Models.Message", b =>
@@ -89,8 +88,7 @@ namespace ChatPractice.DAL.Migrations
 
                     b.Property<string>("Text")
                         .IsRequired()
-                        .HasMaxLength(32768)
-                        .HasColumnType("character varying(32768)");
+                        .HasColumnType("text");
 
                     b.Property<long>("UserId")
                         .HasColumnType("bigint");
@@ -99,9 +97,7 @@ namespace ChatPractice.DAL.Migrations
 
                     b.HasIndex("ConversationId");
 
-                    b.HasIndex("IsDeleted");
-
-                    b.ToTable("message", (string)null);
+                    b.ToTable("Messages");
                 });
 
             modelBuilder.Entity("ChatPractice.DAL.Models.User", b =>
@@ -114,16 +110,14 @@ namespace ChatPractice.DAL.Migrations
 
                     b.Property<string>("Email")
                         .IsRequired()
-                        .HasMaxLength(256)
-                        .HasColumnType("character varying(256)");
+                        .HasColumnType("text");
 
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("boolean");
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasMaxLength(256)
-                        .HasColumnType("character varying(256)");
+                        .HasColumnType("text");
 
                     b.Property<string>("PasswordHash")
                         .IsRequired()
@@ -131,9 +125,7 @@ namespace ChatPractice.DAL.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("IsDeleted");
-
-                    b.ToTable("user", (string)null);
+                    b.ToTable("Users");
                 });
 
             modelBuilder.Entity("ConversationUser", b =>
@@ -148,7 +140,7 @@ namespace ChatPractice.DAL.Migrations
 
                     b.HasIndex("UsersId");
 
-                    b.ToTable("ConversationUser", (string)null);
+                    b.ToTable("ConversationUser");
                 });
 
             modelBuilder.Entity("BelvedereFood.DAL.Models.UserSession", b =>

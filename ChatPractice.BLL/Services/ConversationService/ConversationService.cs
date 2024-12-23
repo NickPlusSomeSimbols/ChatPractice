@@ -4,7 +4,6 @@ using ChatPractice.DAL;
 
 namespace ChatPractice.BLL.Services.ConversationService;
 
-
 public class ConversationService : IConversationService
 {
     private readonly AppDbContext _db;
@@ -13,7 +12,7 @@ public class ConversationService : IConversationService
         _db = db;
     }
 
-    public Task<Result<List<Conversation>>> ListConversations()
+    public async Task<Result<List<Conversation>>> GetAllConversations(long userId)
     {
         throw new NotImplementedException();
     }

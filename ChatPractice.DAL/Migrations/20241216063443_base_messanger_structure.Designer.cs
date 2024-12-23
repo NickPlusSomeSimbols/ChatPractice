@@ -3,6 +3,7 @@ using System;
 using ChatPractice.DAL;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace ChatPractice.DAL.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20241216063443_base_messanger_structure")]
+    partial class base_messanger_structure
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -30,44 +33,9 @@ namespace ChatPractice.DAL.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
 
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("boolean");
-
                     b.HasKey("Id");
 
-                    b.HasIndex("IsDeleted");
-
-                    b.ToTable("conversation", (string)null);
-                });
-
-            modelBuilder.Entity("BelvedereFood.DAL.Models.UserSession", b =>
-                {
-                    b.Property<long>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("boolean");
-
-                    b.Property<bool>("IsExpired")
-                        .HasColumnType("boolean");
-
-                    b.Property<string>("Token")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<long>("UserId")
-                        .HasColumnType("bigint");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("IsDeleted");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("user_session", (string)null);
+                    b.ToTable("Conversation");
                 });
 
             modelBuilder.Entity("ChatPractice.DAL.Models.Message", b =>
@@ -81,16 +49,15 @@ namespace ChatPractice.DAL.Migrations
                     b.Property<long?>("ConversationId")
                         .HasColumnType("bigint");
 
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("boolean");
+                    b.Property<long>("DialogSessionId")
+                        .HasColumnType("bigint");
 
                     b.Property<DateTime>("PostDate")
                         .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("Text")
                         .IsRequired()
-                        .HasMaxLength(32768)
-                        .HasColumnType("character varying(32768)");
+                        .HasColumnType("text");
 
                     b.Property<long>("UserId")
                         .HasColumnType("bigint");
@@ -99,9 +66,7 @@ namespace ChatPractice.DAL.Migrations
 
                     b.HasIndex("ConversationId");
 
-                    b.HasIndex("IsDeleted");
-
-                    b.ToTable("message", (string)null);
+                    b.ToTable("Messages");
                 });
 
             modelBuilder.Entity("ChatPractice.DAL.Models.User", b =>
@@ -114,16 +79,11 @@ namespace ChatPractice.DAL.Migrations
 
                     b.Property<string>("Email")
                         .IsRequired()
-                        .HasMaxLength(256)
-                        .HasColumnType("character varying(256)");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("boolean");
+                        .HasColumnType("text");
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasMaxLength(256)
-                        .HasColumnType("character varying(256)");
+                        .HasColumnType("text");
 
                     b.Property<string>("PasswordHash")
                         .IsRequired()
@@ -131,51 +91,36 @@ namespace ChatPractice.DAL.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("IsDeleted");
-
-                    b.ToTable("user", (string)null);
+                    b.ToTable("Users");
                 });
 
             modelBuilder.Entity("ConversationUser", b =>
                 {
-                    b.Property<long>("ConversationsId")
+                    b.Property<long>("DialogueSessionsId")
                         .HasColumnType("bigint");
 
                     b.Property<long>("UsersId")
                         .HasColumnType("bigint");
 
-                    b.HasKey("ConversationsId", "UsersId");
+                    b.HasKey("DialogueSessionsId", "UsersId");
 
                     b.HasIndex("UsersId");
 
-                    b.ToTable("ConversationUser", (string)null);
-                });
-
-            modelBuilder.Entity("BelvedereFood.DAL.Models.UserSession", b =>
-                {
-                    b.HasOne("ChatPractice.DAL.Models.User", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("User");
+                    b.ToTable("ConversationUser");
                 });
 
             modelBuilder.Entity("ChatPractice.DAL.Models.Message", b =>
                 {
-                    b.HasOne("BelvedereFood.DAL.Models.Conversation", "Conversation")
+                    b.HasOne("BelvedereFood.DAL.Models.Conversation", null)
                         .WithMany("Messages")
                         .HasForeignKey("ConversationId");
-
-                    b.Navigation("Conversation");
                 });
 
             modelBuilder.Entity("ConversationUser", b =>
                 {
                     b.HasOne("BelvedereFood.DAL.Models.Conversation", null)
                         .WithMany()
-                        .HasForeignKey("ConversationsId")
+                        .HasForeignKey("DialogueSessionsId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
