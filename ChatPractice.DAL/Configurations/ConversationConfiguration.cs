@@ -5,9 +5,9 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace BelvedereFood.DAL.Configurations;
 
-public class ConversationConfiguration : BaseConfiguration<Conversation>
+public class ConversationConfiguration : BaseConfiguration<Dialogue>
 {
-    public override void Configure(EntityTypeBuilder<Conversation> builder)
+    public override void Configure(EntityTypeBuilder<Dialogue> builder)
     {
         base.Configure(builder);
 

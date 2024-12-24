@@ -3,6 +3,7 @@ using ChatPractice.DAL.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Query;
 using System.Linq.Expressions;
+using System.Reflection.Metadata;
 
 namespace ChatPractice.DAL;
 
@@ -11,7 +12,7 @@ public class AppDbContext : DbContext
     public DbSet<User> Users { get; set; }
     public DbSet<Message> Messages { get; set; }
     public DbSet<UserSession> UserSessions { get; set; }
-    public DbSet<Conversation> Conversations { get; set; }
+    public DbSet<Dialogue> Conversations { get; set; }
 
     public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
     {
@@ -26,13 +27,26 @@ public class AppDbContext : DbContext
         base.OnModelCreating(modelBuilder);
         modelBuilder.ApplyConfigurationsFromAssembly(typeof(AppDbContext).Assembly);
 
-
         foreach (var property in modelBuilder.Model.GetEntityTypes()
                      .SelectMany(t => t.GetProperties())
                      .Where(p => p.ClrType == typeof(decimal) || p.ClrType == typeof(decimal?)))
         {
             property.SetColumnType("decimal(18,2)");
         }
+
+        modelBuilder.Entity<Dialogue>()
+            .HasOne(d => d.UserOne)
+            .WithMany()
+            .HasForeignKey(d => d.UserOneId)
+            .OnDelete(DeleteBehavior.Restrict)
+            .IsRequired();
+
+        modelBuilder.Entity<Dialogue>()
+            .HasOne(d => d.UserTwo)
+            .WithMany() // No inverse navigation (or configure if needed)
+            .HasForeignKey(d => d.UserTwoId)
+            .OnDelete(DeleteBehavior.Restrict)
+            .IsRequired();
 
         modelBuilder.ApplyGlobalFilters<BaseModel>(e => e.IsDeleted == false);
     }

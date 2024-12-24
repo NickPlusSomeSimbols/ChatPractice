@@ -16,9 +16,9 @@ public class ConversationController : ControllerBase
     }
 
     [HttpGet("GetAllConversations")]
-    public async Task<Result<List<Conversation>>> GetAllConversations(long userId)
+    public async Task<Result<List<Dialogue>>> GetAllConversations()
     {
-        await _conversationService.GetAllConversations(userId);
+        await _conversationService.GetAllConversations();
 
         return Result.Success();
     }

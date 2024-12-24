@@ -5,5 +5,6 @@ namespace ChatPractice.BLL.Services.ConversationService;
 
 public interface IConversationService
 {
-    Task<Result<List<Conversation>>> GetAllConversations(long userId); // TODO change to DTO
+    Task<Result<List<Dialogue>>> GetAllConversations(); // TODO change to DTO
+    Task<Result> CreateConversation(long destinationUserId);
 }

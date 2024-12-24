@@ -7,6 +7,6 @@ public class Message : BaseModel
     public DateTime PostDate { get; set; }
     public long UserId { get; set; }
 
-    public Conversation? Conversation { get; set; }
-    public long? ConversationId { get; set; }
+    public Dialogue? Dialogue { get; set; }
+    public long? DialogueId { get; set; }
 }
