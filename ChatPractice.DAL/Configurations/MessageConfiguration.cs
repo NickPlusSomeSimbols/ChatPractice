@@ -15,7 +15,7 @@ public class MessageConfiguration : BaseConfiguration<Message>
         builder.Property(x => x.PostDate)
             .IsRequired();
 
-        builder.Property(x => x.UserId)
+        builder.Property(x => x.SenderId)
             .IsRequired();
 
         builder.Property(x => x.Text)

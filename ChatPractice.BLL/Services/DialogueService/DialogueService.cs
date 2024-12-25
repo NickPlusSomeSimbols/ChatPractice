@@ -7,23 +7,23 @@ using Microsoft.EntityFrameworkCore;
 
 namespace ChatPractice.BLL.Services.ConversationService;
 
-public class ConversationService : IConversationService
+public class DialogueService : IDialogueService
 {
     private readonly AppDbContext _db;
     private readonly IUserSessionService _userSession;
-    public ConversationService(AppDbContext db, IUserSessionService userSession)
+    public DialogueService(AppDbContext db, IUserSessionService userSession)
     {
         _db = db;
         _userSession = userSession;
     }
     
-    public async Task<Result<List<Dialogue>>> GetAllConversations()
+    public async Task<Result<List<Dialogue>>> GetAllDialogues()
     {
         return Result.Success();
         // var conversations = _db.Conversations.Where(x=>x.Users). 
     }
 
-    public async Task<Result> CreateConversation(long destinationUserId)
+    public async Task<Result> CreateDialogue(long recieverId)
     {
         var currentUser = _userSession.CurrentUser;
 
@@ -32,20 +32,20 @@ public class ConversationService : IConversationService
             throw new ArgumentNullException(nameof(currentUser));
         }
 
-        var destinationUser = await _db.Users.FirstOrDefaultAsync(x => x.Id == destinationUserId);
+        var receiverUser = await _db.Users.FirstOrDefaultAsync(x => x.Id == recieverId);
         
-        if (destinationUser == null)
+        if (receiverUser == null)
         {
-            throw new ArgumentNullException(nameof(destinationUser));
+            throw new ArgumentNullException(nameof(receiverUser));
         }
 
         var conversation = new Dialogue()
         {
             UserOne = currentUser,
-            UserTwo = destinationUser,
+            UserTwo = receiverUser,
         };
 
-        _db.Conversations.Add(conversation);
+        _db.Dialogues.Add(conversation);
         await _db.SaveChangesAsync();
 
         return Result.Success();

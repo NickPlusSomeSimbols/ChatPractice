@@ -12,7 +12,7 @@ public class AppDbContext : DbContext
     public DbSet<User> Users { get; set; }
     public DbSet<Message> Messages { get; set; }
     public DbSet<UserSession> UserSessions { get; set; }
-    public DbSet<Dialogue> Conversations { get; set; }
+    public DbSet<Dialogue> Dialogues { get; set; }
 
     public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
     {
@@ -43,7 +43,7 @@ public class AppDbContext : DbContext
 
         modelBuilder.Entity<Dialogue>()
             .HasOne(d => d.UserTwo)
-            .WithMany() // No inverse navigation (or configure if needed)
+            .WithMany() 
             .HasForeignKey(d => d.UserTwoId)
             .OnDelete(DeleteBehavior.Restrict)
             .IsRequired();

@@ -5,12 +5,12 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace BelvedereFood.DAL.Configurations;
 
-public class ConversationConfiguration : BaseConfiguration<Dialogue>
+public class DialogueConfiguration : BaseConfiguration<Dialogue>
 {
     public override void Configure(EntityTypeBuilder<Dialogue> builder)
     {
         base.Configure(builder);
 
-        builder.ToTable("conversation");
+        builder.ToTable("dialogue");
     }
 }
