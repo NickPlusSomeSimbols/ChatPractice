@@ -1,5 +1,6 @@
 using Ardalis.Result;
 using ChatPractice.BLL.Services.MessageService;
+using ChatPractice.DTO.UserSession;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ChatPractice.API.Controllers;
@@ -15,9 +16,9 @@ public class MessageController : ControllerBase
     }
 
     [HttpPost("SendMessage")]
-    public async Task<Result> SendMessage(long recieverId)
+    public async Task<Result> SendMessage(SendMessageDto dto)
     {
-        await _messageService.SendMessage(recieverId);
+        await _messageService.SendMessage(dto);
 
         return Result.Success();
     }

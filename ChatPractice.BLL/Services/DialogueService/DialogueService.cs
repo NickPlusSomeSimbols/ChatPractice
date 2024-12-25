@@ -23,7 +23,7 @@ public class DialogueService : IDialogueService
         // var conversations = _db.Conversations.Where(x=>x.Users). 
     }
 
-    public async Task<Result> CreateDialogue(long recieverId)
+    public async Task<Result<Dialogue>> CreateDialogue(long recieverId)
     {
         var currentUser = _userSession.CurrentUser;
 
@@ -39,15 +39,15 @@ public class DialogueService : IDialogueService
             throw new ArgumentNullException(nameof(receiverUser));
         }
 
-        var conversation = new Dialogue()
+        var dialogue = new Dialogue()
         {
             UserOne = currentUser,
             UserTwo = receiverUser,
         };
 
-        _db.Dialogues.Add(conversation);
+        _db.Dialogues.Add(dialogue);
         await _db.SaveChangesAsync();
 
-        return Result.Success();
+        return Result.Success(dialogue);
     }
 }
