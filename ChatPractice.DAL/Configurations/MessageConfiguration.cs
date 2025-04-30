@@ -4,22 +4,22 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace BelvedereFood.DAL.Configurations;
 
-public class MessageConfiguration : BaseConfiguration<Message>
+public class MessageConfiguration : BaseConfiguration<ChatMessage>
 {
-    public override void Configure(EntityTypeBuilder<Message> builder)
+    public override void Configure(EntityTypeBuilder<ChatMessage> builder)
     {
         base.Configure(builder);
 
         builder.ToTable("message");
-
-        builder.Property(x => x.PostDate)
-            .IsRequired();
 
         builder.Property(x => x.SenderId)
             .IsRequired();
 
         builder.Property(x => x.Text)
             .HasMaxLength(8 * 4096)
+            .IsRequired();
+
+        builder.Property(x => x.SendingDate)
             .IsRequired();
     }
 }

@@ -6,17 +6,17 @@ using Microsoft.AspNetCore.Mvc;
 namespace ChatPractice.API.Controllers;
 [ApiController]
 [Route("api/[controller]")]
-public class MessageController : ControllerBase
+public class ChatController : ControllerBase
 {
-    private readonly IMessageService _messageService;
+    private readonly IChatService _messageService;
 
-    public MessageController(IMessageService messageService)
+    public ChatController(IChatService messageService)
     {
         _messageService = messageService;
     }
 
     [HttpPost("SendMessage")]
-    public async Task<Result> SendMessage(SendMessageDto dto)
+    public async Task<Result> SendMessage(MessageDto dto)
     {
         await _messageService.SendMessage(dto);
 

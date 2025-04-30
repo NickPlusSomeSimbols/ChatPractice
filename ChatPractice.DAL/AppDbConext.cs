@@ -10,9 +10,10 @@ namespace ChatPractice.DAL;
 public class AppDbContext : DbContext
 {
     public DbSet<User> Users { get; set; }
-    public DbSet<Message> Messages { get; set; }
     public DbSet<UserSession> UserSessions { get; set; }
-    public DbSet<Dialogue> Dialogues { get; set; }
+
+    public DbSet<ChatMessage> ChatMessages { get; set; }
+
 
     public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
     {
