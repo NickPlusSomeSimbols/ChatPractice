@@ -35,20 +35,6 @@ public class AppDbContext : DbContext
             property.SetColumnType("decimal(18,2)");
         }
 
-        modelBuilder.Entity<Dialogue>()
-            .HasOne(d => d.UserOne)
-            .WithMany()
-            .HasForeignKey(d => d.UserOneId)
-            .OnDelete(DeleteBehavior.Restrict)
-            .IsRequired();
-
-        modelBuilder.Entity<Dialogue>()
-            .HasOne(d => d.UserTwo)
-            .WithMany() 
-            .HasForeignKey(d => d.UserTwoId)
-            .OnDelete(DeleteBehavior.Restrict)
-            .IsRequired();
-
         modelBuilder.ApplyGlobalFilters<BaseModel>(e => e.IsDeleted == false);
     }
 }

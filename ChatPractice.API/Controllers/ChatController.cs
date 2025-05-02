@@ -1,5 +1,6 @@
 using Ardalis.Result;
 using ChatPractice.BLL.Services.MessageService;
+using ChatPractice.DTO.Message;
 using ChatPractice.DTO.UserSession;
 using Microsoft.AspNetCore.Mvc;
 
@@ -16,10 +17,17 @@ public class ChatController : ControllerBase
     }
 
     [HttpPost("SendMessage")]
-    public async Task<Result> SendMessage(MessageDto dto)
+    public async Task<Result> SendMessage(SentMessageDto dto)
     {
-        await _messageService.SendMessage(dto);
+        await _messageService.SendMessageAsync(dto);
 
         return Result.Success();
+    }
+    [HttpPost("GetChatMessages")]
+    public async Task<Result<List<QueriedChatMessageDto>>> GetChatMessages(long accountId, long recieverId)
+    {
+        var messages = await _messageService.GetChatMessagesAsync(accountId, recieverId);
+
+        return Result.Success(messages);
     }
 }
