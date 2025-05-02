@@ -5,6 +5,6 @@ namespace ChatPractice.BLL.Services.MessageService;
 
 public interface IChatService
 {
-    Task<Result> SendMessageAsync(SentMessageDto dto);
+    Task<Result> SendMessageAsync(SentChatMessageDto dto);
     Task<Result<List<QueriedChatMessageDto>>> GetChatMessagesAsync(long accountId, long recieverId);
 }

@@ -17,7 +17,7 @@ public class ChatController : ControllerBase
     }
 
     [HttpPost("SendMessage")]
-    public async Task<Result> SendMessage(SentMessageDto dto)
+    public async Task<Result> SendMessage(SentChatMessageDto dto)
     {
         await _messageService.SendMessageAsync(dto);
 

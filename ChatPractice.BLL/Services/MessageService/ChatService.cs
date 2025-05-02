@@ -1,4 +1,5 @@
 ﻿using Ardalis.Result;
+using ChatPractice.BLL.Mappers;
 using ChatPractice.BLL.Services.UserSessionService;
 using ChatPractice.DAL;
 using ChatPractice.DAL.Models;
@@ -18,12 +19,12 @@ public class ChatService : IChatService
         _chatRepository = chatRepository;
     }
 
-    public async Task<Result> SendMessageAsync(SentMessageDto dto)
+    public async Task<Result> SendMessageAsync(SentChatMessageDto dto)
     {
         var message = new ChatMessage
         {
             SenderId = 0, //_userSessionService.CurrentUser.Id,
-            ReceiverId = dto.ReceiverId,
+            ReceieverId = dto.ReceieverId,
             Text = dto.Text,
             SendingDate = DateTime.UtcNow
         };

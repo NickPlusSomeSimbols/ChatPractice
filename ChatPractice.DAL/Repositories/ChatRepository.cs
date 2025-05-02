@@ -22,15 +22,15 @@ public class ChatRepository : IChatRepository
 
     public async Task<List<ChatMessage>> GetChatMessagesAsync(long accountId, long recieverId)
     {
-        var sendersMessages = await _context.ChatMessages
-            .Where(x => x.SenderId == accountId && x.ReceiverId == recieverId)
+        var senderMessages = await _context.ChatMessages
+            .Where(x => x.SenderId == accountId && x.ReceieverId == recieverId)
             .ToListAsync();
 
         var recieverMessages = await _context.ChatMessages
-            .Where(x => x.SenderId == recieverId && x.ReceiverId == accountId)
+            .Where(x => x.SenderId == recieverId && x.ReceieverId == accountId)
             .ToListAsync();
 
-        var totalMessages = sendersMessages
+        var totalMessages = senderMessages
             .Concat(recieverMessages)
             .OrderBy(x => x.SendingDate)
             .ToList();
