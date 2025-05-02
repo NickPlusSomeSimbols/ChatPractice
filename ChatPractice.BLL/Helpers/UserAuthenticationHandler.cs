@@ -12,7 +12,8 @@ public class UserAuthenticationHandler : AuthenticationHandler<AuthenticationSch
 {
     private readonly IUserSessionService _userSessionService;
 
-    public UserAuthenticationHandler(IOptionsMonitor<AuthenticationSchemeOptions> options,
+    public UserAuthenticationHandler(
+        IOptionsMonitor<AuthenticationSchemeOptions> options,
         ILoggerFactory logger,
         UrlEncoder encoder,
         IUserSessionService userSessionService
@@ -23,32 +24,18 @@ public class UserAuthenticationHandler : AuthenticationHandler<AuthenticationSch
 
     protected override async Task<AuthenticateResult> HandleAuthenticateAsync()
     {
-        string token = null;
-
-        token = Request.Headers["Authorization"].ToString();
-
-        if (string.IsNullOrEmpty(token))
+        if (!Request.Headers.TryGetValue("Authorization", out var authorizationHeaderValues) || string.IsNullOrEmpty(authorizationHeaderValues.FirstOrDefault()))
         {
-            return AuthenticateResult.Fail("Authorization not provided");
+            return AuthenticateResult.Fail("Authorization header is missing or empty.");
         }
 
-        if (!Request.Headers.TryGetValue("Authorization", out var authorizationHeaderValues) && token is null)
-        {
-            return AuthenticateResult.NoResult();
-        }
+        var token = authorizationHeaderValues.FirstOrDefault()!;
 
-        token ??= authorizationHeaderValues.FirstOrDefault();
-
-        if (string.IsNullOrEmpty(token))
-        {
-            return AuthenticateResult.NoResult();
-        }
-
-        UserDto user = await _userSessionService.GetByToken(token);
+        var user = await _userSessionService.GetByToken(token);
 
         if (user is null)
         {
-            return AuthenticateResult.Fail("Invalid token");
+            return AuthenticateResult.Fail("Invalid or expired token.");
         }
 
         var claims = new[]

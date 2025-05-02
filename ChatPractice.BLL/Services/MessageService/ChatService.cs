@@ -37,13 +37,7 @@ public class ChatService : IChatService
     {
         var messages = await _chatRepository.GetChatMessagesAsync(accountId, recieverId);
 
-        // make proper mapping
-        var messageDtos = messages.Select(x => new QueriedChatMessageDto
-        {
-            isSenderMessage = x.SenderId == accountId,
-            Text = x.Text,
-            SendingDate = x.SendingDate,
-        }).ToList();
+        var messageDtos = messages.MapToDtos(accountId);
 
         return Result.Success(messageDtos);
     }

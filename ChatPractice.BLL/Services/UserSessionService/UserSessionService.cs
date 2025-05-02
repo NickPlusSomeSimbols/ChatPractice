@@ -71,7 +71,6 @@ public class UserSessionService : IUserSessionService
         };
 
         _db.UserSessions.Add(session);
-
         await _db.SaveChangesAsync();
 
         var userSession = await _db.UserSessions.FirstOrDefaultAsync(x => x.Id == session.Id);
@@ -81,6 +80,11 @@ public class UserSessionService : IUserSessionService
 
     public async Task<Result> Logout()
     {
+        if(_httpContext.HttpContext == null)
+        {
+            throw new Exception("HttpContext is null");
+        }
+
         _httpContext.HttpContext.Request.Headers.TryGetValue(HeaderNames.Authorization, out var token);
 
         var session = await _db.UserSessions.FirstOrDefaultAsync(x => x.Token == token.ToString());
@@ -96,20 +100,20 @@ public class UserSessionService : IUserSessionService
         return Result.Success();
     }
 
-    public async Task<Result<UserDto>> GetByToken(string token)
+    public async Task<UserDto> GetByToken(string token)
     {
         var session = await _db.UserSessions.Select(x => new { x.UserId, x.Token }).Where(x => x.Token == token).FirstOrDefaultAsync();
 
         if (session == null)
         {
-            return Result.NotFound("Session with such token is not found");
+           throw new Exception("Session not found");
         }
 
         var user = await _db.Users.FirstOrDefaultAsync(x => x.Id == session.UserId);
 
         if (user == null)
         {
-            return Result.NotFound("User with such token is not found");
+            throw new Exception("User not found");
         }
 
         return user.MapToDto();
