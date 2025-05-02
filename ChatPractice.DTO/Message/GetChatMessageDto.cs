@@ -2,7 +2,7 @@
 
 namespace ChatPractice.DTO.Message;
 
-public class QueriedChatMessageDto
+public class GetChatMessageDto
 {
     public bool isSenderMessage { get; set; }
     public string Text { get; set; } = default!;

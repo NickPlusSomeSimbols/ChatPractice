@@ -9,24 +9,24 @@ namespace ChatPractice.BLL.Mappers;
 [Mapper]
 public static partial class ChatMessageMapper
 {
-    public static SentChatMessageDto MapToDto(this ChatMessage message)
+    public static ChatMessage MapToEntity(this SendChatMessageDto message, long accountId)
     {
-        return new SentChatMessageDto
+        return new ChatMessage
         {
-            SenderId = message.SenderId,
+            SenderId = accountId,
             ReceieverId = message.ReceieverId,
             Text = message.Text,
-            SendingDate = message.SendingDate
+            SendingDate = DateTime.UtcNow
         };
     }
 
-    public static List<QueriedChatMessageDto> MapToDtos(this List<ChatMessage> messages, long accountId)
+    public static List<GetChatMessageDto> MapToDtos(this List<ChatMessage> messages, long accountId)
     {
-        var messageDtos = new List<QueriedChatMessageDto>();
+        var messageDtos = new List<GetChatMessageDto>();
 
         foreach (var message in messages)
         {
-            messageDtos.Add(new QueriedChatMessageDto
+            messageDtos.Add(new GetChatMessageDto
             {
                 isSenderMessage = accountId == message.SenderId,
                 Text = message.Text,

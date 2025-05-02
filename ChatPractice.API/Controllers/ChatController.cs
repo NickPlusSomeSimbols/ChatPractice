@@ -17,14 +17,14 @@ public class ChatController : ControllerBase
     }
 
     [HttpPost("SendMessage")]
-    public async Task<Result> SendMessage(SentChatMessageDto dto)
+    public async Task<Result> SendMessage(SendChatMessageDto dto)
     {
         await _messageService.SendMessageAsync(dto);
 
         return Result.Success();
     }
     [HttpPost("GetChatMessages")]
-    public async Task<Result<List<QueriedChatMessageDto>>> GetChatMessages(long accountId, long recieverId)
+    public async Task<Result<List<GetChatMessageDto>>> GetChatMessages(long accountId, long recieverId)
     {
         var messages = await _messageService.GetChatMessagesAsync(accountId, recieverId);
 

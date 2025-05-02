@@ -19,21 +19,15 @@ public class ChatService : IChatService
         _chatRepository = chatRepository;
     }
 
-    public async Task<Result> SendMessageAsync(SentChatMessageDto dto)
+    public async Task<Result> SendMessageAsync(SendChatMessageDto dto)
     {
-        var message = new ChatMessage
-        {
-            SenderId = 0, //_userSessionService.CurrentUser.Id,
-            ReceieverId = dto.ReceieverId,
-            Text = dto.Text,
-            SendingDate = DateTime.UtcNow
-        };
+        var messageEntity = dto.MapToEntity(_userSessionService.CurrentUser.Id);
 
-        await _chatRepository.SendMessageAsync(message);
+        await _chatRepository.SendMessageAsync(messageEntity);
 
         return Result.Success();
     }
-    public async Task<Result<List<QueriedChatMessageDto>>> GetChatMessagesAsync(long accountId, long recieverId)
+    public async Task<Result<List<GetChatMessageDto>>> GetChatMessagesAsync(long accountId, long recieverId)
     {
         var messages = await _chatRepository.GetChatMessagesAsync(accountId, recieverId);
 
