@@ -14,6 +14,7 @@ namespace ChatPractice.BLL.Services.UserSessionService;
 
 public class UserSessionService : IUserSessionService
 {
+    private User _currentUser;
     private readonly AppDbContext _db;
     private readonly IHttpContextAccessor _httpContext;
     public UserSessionService(AppDbContext db, IHttpContextAccessor httpContext)
@@ -21,9 +22,18 @@ public class UserSessionService : IUserSessionService
         _db = db;
         _httpContext = httpContext;
     }
-    public User CurrentUser { get; set; }
 
-    User IUserSessionService.CurrentUser { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+    public User CurrentUser
+    {
+        get
+        {
+            return _currentUser;
+        }
+        set
+        {
+            _currentUser = value ?? throw new ArgumentNullException(nameof(value), "Current user cannot be null.");
+        }
+    }
 
     public async Task<Result<string>> Register(RegisterDto dto)
     {

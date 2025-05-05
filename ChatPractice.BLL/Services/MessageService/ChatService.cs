@@ -21,17 +21,29 @@ public class ChatService : IChatService
 
     public async Task<Result> SendMessageAsync(SendChatMessageDto dto)
     {
+        if(dto.ReceiverId == _userSessionService.CurrentUser.Id)
+        {
+            return Result.Error("You cannot send a message to yourself.");
+        }
+
         var messageEntity = dto.MapToEntity(_userSessionService.CurrentUser.Id);
 
         await _chatRepository.SendMessageAsync(messageEntity);
 
         return Result.Success();
     }
-    public async Task<Result<List<GetChatMessageDto>>> GetChatMessagesAsync(long accountId, long recieverId)
+    public async Task<Result<List<GetChatMessageDto>>> GetChatMessagesAsync(long recieverId)
     {
-        var messages = await _chatRepository.GetChatMessagesAsync(accountId, recieverId);
+        var currentUserId = _userSessionService.CurrentUser.Id;
 
-        var messageDtos = messages.MapToDtos(accountId);
+        if (currentUserId == recieverId)
+        {
+            return Result.Error("You cannot request your own chat.");
+        }
+
+        var messages = await _chatRepository.GetChatMessagesAsync(currentUserId, recieverId);
+
+        var messageDtos = messages.MapToDtos(currentUserId);
 
         return Result.Success(messageDtos);
     }

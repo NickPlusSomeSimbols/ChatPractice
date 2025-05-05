@@ -18,6 +18,7 @@ public class ChatController : ControllerBase
         _messageService = messageService;
     }
 
+    [Authorize]
     [HttpPost("SendMessage")]
     public async Task<Result> SendMessage(SendChatMessageDto dto)
     {
@@ -25,10 +26,11 @@ public class ChatController : ControllerBase
 
         return Result.Success();
     }
+    [Authorize]
     [HttpPost("GetChatMessages")]
-    public async Task<Result<List<GetChatMessageDto>>> GetChatMessages(long accountId, long recieverId)
+    public async Task<Result<List<GetChatMessageDto>>> GetChatMessages(long recieverId)
     {
-        var messages = await _messageService.GetChatMessagesAsync(accountId, recieverId);
+        var messages = await _messageService.GetChatMessagesAsync(recieverId);
 
         return Result.Success(messages);
     }

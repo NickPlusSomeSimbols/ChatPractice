@@ -21,13 +21,11 @@ public class UserAuthorizationMiddleware
     {
         if (!SkipPermissionCheck(context))
         {
-            var userConfiguration = context.RequestServices.GetRequiredService<IConfigurationService>();
+            var userConfiguration = context.RequestServices.GetRequiredService<IUserSessionService>();
             var db = context.RequestServices.GetRequiredService<AppDbContext>();
 
-            var UserId = context.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
             var userId = context.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
 
-            if (string.IsNullOrEmpty(UserId))
             if (string.IsNullOrEmpty(userId))
             {
                 context.Response.StatusCode = StatusCodes.Status403Forbidden;
@@ -36,13 +34,22 @@ public class UserAuthorizationMiddleware
                 return;
             }
 
-            long parsedUserId = long.Parse(UserId);
             long parsedUserId = long.Parse(userId);
 
-            userConfiguration.UserId = parsedUserId;
+            var user = await db.Users.FindAsync(parsedUserId);
+            if (user == null)
+            {
+                context.Response.StatusCode = StatusCodes.Status403Forbidden;
+                await context.Response.WriteAsJsonAsync(new { error = "User not found" });
+                return;
+            }
+
+            userConfiguration.CurrentUser = user;
         }
+
         await _next(context);
     }
+
     private bool SkipPermissionCheck(HttpContext context)
     {
         var endpoint = context.GetEndpoint();
