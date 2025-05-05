@@ -1,6 +1,9 @@
 using ChatPractice.BLL;
+using ChatPractice.BLL.Helpers;
 using ChatPractice.BLL.Services.Middlewares;
 using ChatPractice.DAL;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.OAuth;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);

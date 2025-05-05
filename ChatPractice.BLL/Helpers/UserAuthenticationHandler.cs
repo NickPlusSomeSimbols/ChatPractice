@@ -1,12 +1,11 @@
 ﻿using ChatPractice.BLL.Services.UserSessionService;
-using ChatPractice.DTO.User;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using System.Security.Claims;
 using System.Text.Encodings.Web;
 
-namespace BelvedereFood.BLL.Helpers;
+namespace ChatPractice.BLL.Helpers;
 
 public class UserAuthenticationHandler : AuthenticationHandler<AuthenticationSchemeOptions>
 {

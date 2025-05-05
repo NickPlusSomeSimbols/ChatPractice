@@ -1,4 +1,4 @@
-using BelvedereFood.DAL.Models;
+using ChatPractice.DAL.Models;
 
 namespace ChatPractice.DAL.Models;
 public class ChatMessage : BaseModel

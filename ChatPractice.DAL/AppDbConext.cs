@@ -1,5 +1,4 @@
-﻿using BelvedereFood.DAL.Models;
-using ChatPractice.DAL.Models;
+﻿using ChatPractice.DAL.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Query;
 using System.Linq.Expressions;

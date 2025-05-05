@@ -1,5 +1,4 @@
 ﻿using Ardalis.Result;
-using BelvedereFood.DAL.Models;
 using ChatPractice.BLL.Mappers;
 using ChatPractice.DAL;
 using ChatPractice.DAL.Models;
@@ -74,13 +73,13 @@ public class UserSessionService : IUserSessionService
         await _db.SaveChangesAsync();
 
         var userSession = await _db.UserSessions.FirstOrDefaultAsync(x => x.Id == session.Id);
-
+            
         return Result.Success(userSession!.Token);
     }
 
     public async Task<Result> Logout()
     {
-        if(_httpContext.HttpContext == null)
+        if (_httpContext.HttpContext == null)
         {
             throw new Exception("HttpContext is null");
         }
@@ -106,7 +105,7 @@ public class UserSessionService : IUserSessionService
 
         if (session == null)
         {
-           throw new Exception("Session not found");
+            throw new Exception("Session not found");
         }
 
         var user = await _db.Users.FirstOrDefaultAsync(x => x.Id == session.UserId);

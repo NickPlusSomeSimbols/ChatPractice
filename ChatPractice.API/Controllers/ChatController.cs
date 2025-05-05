@@ -2,9 +2,11 @@ using Ardalis.Result;
 using ChatPractice.BLL.Services.MessageService;
 using ChatPractice.DTO.Message;
 using ChatPractice.DTO.UserSession;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ChatPractice.API.Controllers;
+
 [ApiController]
 [Route("api/[controller]")]
 public class ChatController : ControllerBase

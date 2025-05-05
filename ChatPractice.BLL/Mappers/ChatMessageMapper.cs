@@ -14,7 +14,7 @@ public static partial class ChatMessageMapper
         return new ChatMessage
         {
             SenderId = accountId,
-            ReceieverId = message.ReceieverId,
+            ReceieverId = message.ReceiverId,
             Text = message.Text,
             SendingDate = DateTime.UtcNow
         };

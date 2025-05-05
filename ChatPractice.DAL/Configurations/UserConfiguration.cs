@@ -2,7 +2,7 @@ using ChatPractice.DAL.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace BelvedereFood.DAL.Configurations;
+namespace ChatPractice.DAL.Configurations;
 
 public class UserConfiguration : BaseConfiguration<User>
 {

@@ -1,6 +1,6 @@
 using ChatPractice.DAL.Models;
 
-namespace BelvedereFood.DAL.Models;
+namespace ChatPractice.DAL.Models;
 
 public class UserSession : BaseModel
 {

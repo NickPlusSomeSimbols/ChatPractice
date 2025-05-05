@@ -1,4 +1,5 @@
 ﻿using ChatPractice.BLL.Attributes;
+using ChatPractice.BLL.Services.UserSessionService;
 using ChatPractice.DAL;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc.Controllers;
@@ -24,8 +25,10 @@ public class UserAuthorizationMiddleware
             var db = context.RequestServices.GetRequiredService<AppDbContext>();
 
             var UserId = context.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            var userId = context.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
 
             if (string.IsNullOrEmpty(UserId))
+            if (string.IsNullOrEmpty(userId))
             {
                 context.Response.StatusCode = StatusCodes.Status403Forbidden;
                 await context.Response.WriteAsJsonAsync("Access denied");
@@ -34,6 +37,7 @@ public class UserAuthorizationMiddleware
             }
 
             long parsedUserId = long.Parse(UserId);
+            long parsedUserId = long.Parse(userId);
 
             userConfiguration.UserId = parsedUserId;
         }

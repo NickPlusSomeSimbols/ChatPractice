@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace BelvedereFood.DAL.Configurations;
+namespace ChatPractice.DAL.Configurations;
 public abstract class BaseConfiguration<T> : IEntityTypeConfiguration<T> where T : BaseModel
 {
     public virtual void Configure(EntityTypeBuilder<T> builder)
