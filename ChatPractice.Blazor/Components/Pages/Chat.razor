@@ -1,0 +1,84 @@
+﻿@page "/Chat"
+@using Ardalis.Result
+@using ChatPractice.DTO.Message
+@attribute [StreamRendering]
+@inject HttpClient Http
+
+<PageTitle>Weather</PageTitle>
+
+<h1>Weather</h1>
+
+<p>Chat with user [N]</p>
+
+@if (dialogFormattedMessages == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <ul class="ul">
+        @foreach (var message in dialogFormattedMessages)
+        {
+            <li>@message.UserName [@message.CreatedAt]: @message.Message</li>
+        }
+    </ul>
+}
+
+@code {
+    private List<GetChatMessageDto>? messages;
+    private List<DialogFormattedMessage>? dialogFormattedMessages;
+
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+            var request = new HttpRequestMessage(HttpMethod.Get, "https://localhost:7040/api/Chat/GetChatMessages?recieverId=1");
+            request.Headers.Add("Authorization", "d4c1faeba3584b1ab3f24013e76a199c067e29297ed6473a983d75d0550dfceb");
+
+            var response = await Http.SendAsync(request);
+
+            if (!response.IsSuccessStatusCode)
+            {
+                throw new Exception($"Failed to fetch messages. Status code: {response.StatusCode}");
+            }
+
+            var responseBody = await response.Content.ReadFromJsonAsync<Result<List<GetChatMessageDto>>>();
+
+            List<GetChatMessageDto> messages;
+
+            if (responseBody == null || responseBody.Value == null)
+            {
+                messages = new List<GetChatMessageDto>();
+            }
+            else
+            {
+                messages = responseBody.Value;
+            }
+
+            if (messages == null)
+            {
+                messages = new List<GetChatMessageDto>();
+            }
+
+            dialogFormattedMessages = messages.Select(m => new DialogFormattedMessage
+                {
+                    Message = m.Text,
+                    UserName = m.isSenderMessage ? "CurrentUser" : "OtherUser",
+                    CreatedAt = m.SendingDate
+                }).ToList();
+        }
+        catch(Exception ex)
+        {
+            Console.Error.WriteLine($"Error loading chat messages: {ex.Message}");
+            messages = new List<GetChatMessageDto>();
+            dialogFormattedMessages = new List<DialogFormattedMessage>();
+        }
+    }
+
+    private class DialogFormattedMessage
+    {
+        public string? Message { get; set; }
+        public string? UserName { get; set; }
+        public DateTime CreatedAt { get; set; }
+    }
+}
