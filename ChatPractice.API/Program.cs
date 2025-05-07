@@ -16,7 +16,7 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.ConfigureServices();
 
-builder.Services.AddDbContext<AppDbContext>(options => options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
+builder.Services.AddDbContext<AppDbContext>(options => options.UseNpgsql(builder.Configuration.GetConnectionString("DockerPostgres")));
 
 builder.Services.AddAuthentication("MyScheme")
 .AddScheme<AuthenticationSchemeOptions, UserAuthenticationHandler>("MyScheme", options => { });

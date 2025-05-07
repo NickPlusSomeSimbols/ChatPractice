@@ -38,7 +38,7 @@ public class ChatService : IChatService
 
         if (currentUserId == recieverId)
         {
-            return Result.Error("You cannot request your own chat.");
+            return Result.Error("You cannot request a chat with yourself.");
         }
 
         var messages = await _chatRepository.GetChatMessagesAsync(currentUserId, recieverId);

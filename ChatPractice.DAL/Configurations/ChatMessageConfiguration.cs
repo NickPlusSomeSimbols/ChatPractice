@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace ChatPractice.DAL.Configurations;
 
-public class MessageConfiguration : BaseConfiguration<ChatMessage>
+public class ChatMessageConfiguration : BaseConfiguration<ChatMessage>
 {
     public override void Configure(EntityTypeBuilder<ChatMessage> builder)
     {

@@ -36,8 +36,6 @@ public class UserSessionController : ControllerBase
     [HttpPost("Logout")]
     public async Task<Result> Logout()
     {
-        await _userSessionService.Logout();
-
-        return Result.Success();
+        return await _userSessionService.Logout();
     }
 }
