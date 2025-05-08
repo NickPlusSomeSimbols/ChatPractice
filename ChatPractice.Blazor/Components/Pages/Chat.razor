@@ -1,6 +1,7 @@
 ﻿@page "/Chat"
+@using ChatPractice.DTO.Dtos.Message
+@using ChatPractice.DTO.ViewModels
 @using Ardalis.Result
-@using ChatPractice.DTO.Message
 @attribute [StreamRendering]
 @inject HttpClient Http
 
@@ -10,14 +11,14 @@
 
 <p>Chat with user [N]</p>
 
-@if (dialogFormattedMessages == null)
+@if (directMessageViewModels == null)
 {
     <p><em>Loading...</em></p>
 }
 else
 {
     <ul class="ul">
-        @foreach (var message in dialogFormattedMessages)
+        @foreach (var message in directMessageViewModels)
         {
             <li>@message.UserName [@message.CreatedAt]: @message.Message</li>
         }
@@ -25,30 +26,43 @@ else
 }
 
 @code {
-    private List<GetChatMessageDto>? messages;
-    private List<DialogFormattedMessage>? dialogFormattedMessages;
+    private List<ChatMessageDto>? messages;
+    private List<DirectMessageViewModel>? directMessageViewModels;
 
     protected override async Task OnInitializedAsync()
     {
         try
         {
             var request = new HttpRequestMessage(HttpMethod.Get, "https://localhost:7040/api/Chat/GetChatMessages?recieverId=1");
-            request.Headers.Add("Authorization", "d4c1faeba3584b1ab3f24013e76a199c067e29297ed6473a983d75d0550dfceb");
+            request.Headers.Add("Authorization", "d4c1faeba3584b1ab3f24013e76a199c067e29297ed6473a983d75d0550dfceb"); // TODO: Replace with your actual token
 
             var response = await Http.SendAsync(request);
+
+            /*
+             *  if (!response.IsSuccessStatusCode)
+             *  {
+             *      // TODO Handle the error response properly
+             *      throw new Exception($"Failed to fetch messages. Status code: {response.StatusCode}");
+             *  }
+             *
+             *  var responceValue = GetResponceValue<CurrentRequiredType>(response);
+             *
+             *
+             *
+             */
 
             if (!response.IsSuccessStatusCode)
             {
                 throw new Exception($"Failed to fetch messages. Status code: {response.StatusCode}");
             }
 
-            var responseBody = await response.Content.ReadFromJsonAsync<Result<List<GetChatMessageDto>>>();
+            var responseBody = await response.Content.ReadFromJsonAsync<Result<List<ChatMessageDto>>>();
 
-            List<GetChatMessageDto> messages;
+            List<ChatMessageDto> messages;
 
             if (responseBody == null || responseBody.Value == null)
             {
-                messages = new List<GetChatMessageDto>();
+                messages = new List<ChatMessageDto>();
             }
             else
             {
@@ -57,28 +71,21 @@ else
 
             if (messages == null)
             {
-                messages = new List<GetChatMessageDto>();
+                messages = new List<ChatMessageDto>();
             }
 
-            dialogFormattedMessages = messages.Select(m => new DialogFormattedMessage
+            directMessageViewModels = messages.Select(m => new DirectMessageViewModel
                 {
                     Message = m.Text,
-                    UserName = m.isSenderMessage ? "CurrentUser" : "OtherUser",
+                    UserName = m.UserName,
                     CreatedAt = m.SendingDate
                 }).ToList();
         }
-        catch(Exception ex)
+        catch (Exception ex)
         {
             Console.Error.WriteLine($"Error loading chat messages: {ex.Message}");
-            messages = new List<GetChatMessageDto>();
-            dialogFormattedMessages = new List<DialogFormattedMessage>();
+            messages = new List<ChatMessageDto>();
+            directMessageViewModels = new List<DirectMessageViewModel>();
         }
-    }
-
-    private class DialogFormattedMessage
-    {
-        public string? Message { get; set; }
-        public string? UserName { get; set; }
-        public DateTime CreatedAt { get; set; }
     }
 }

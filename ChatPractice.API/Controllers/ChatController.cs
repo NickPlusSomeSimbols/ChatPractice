@@ -1,7 +1,6 @@
 using Ardalis.Result;
 using ChatPractice.BLL.Services.MessageService;
-using ChatPractice.DTO.Message;
-using ChatPractice.DTO.UserSession;
+using ChatPractice.DTO.Dtos.Message;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -28,7 +27,7 @@ public class ChatController : ControllerBase
     }
     [Authorize]
     [HttpGet("GetChatMessages")]
-    public async Task<Result<List<GetChatMessageDto>>> GetChatMessages(long recieverId)
+    public async Task<Result<List<ChatMessageDto>>> GetChatMessages(long recieverId)
     {
         var result = await _messageService.GetChatMessagesAsync(recieverId);
 

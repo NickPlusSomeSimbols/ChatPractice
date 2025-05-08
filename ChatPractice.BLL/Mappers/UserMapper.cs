@@ -1,5 +1,5 @@
 ﻿using ChatPractice.DAL.Models;
-using ChatPractice.DTO.User;
+using ChatPractice.DTO.Dtos.User;
 using Riok.Mapperly.Abstractions;
 
 namespace ChatPractice.BLL.Mappers;

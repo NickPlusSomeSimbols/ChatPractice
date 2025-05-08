@@ -1,4 +1,4 @@
-﻿namespace ChatPractice.DTO.User;
+﻿namespace ChatPractice.DTO.Dtos.User;
 public class UserDto : BaseDto
 {
     public string Email { get; set; } = default!;

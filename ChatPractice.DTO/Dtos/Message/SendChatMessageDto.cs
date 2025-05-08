@@ -1,7 +1,6 @@
-﻿using ChatPractice.DTO.UserSession;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 
-namespace ChatPractice.DTO.Message;
+namespace ChatPractice.DTO.Dtos.Message;
 
 public class SendChatMessageDto
 {

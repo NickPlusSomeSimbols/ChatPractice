@@ -1,8 +1,7 @@
 ﻿using ChatPractice.DAL.Models;
-using ChatPractice.DTO.Message;
-using ChatPractice.DTO.User;
+using ChatPractice.DTO.Dtos.Message;
+using ChatPractice.DTO.ViewModels;
 using Riok.Mapperly.Abstractions;
-using System.Security.Principal;
 
 namespace ChatPractice.BLL.Mappers;
 
@@ -20,13 +19,13 @@ public static partial class ChatMessageMapper
         };
     }
 
-    public static List<GetChatMessageDto> MapToDtos(this List<ChatMessage> messages, long accountId)
+    public static List<ChatMessageDto> MapToDtos(this List<ChatMessage> messages, long accountId)
     {
-        var messageDtos = new List<GetChatMessageDto>();
+        var messageDtos = new List<ChatMessageDto>();
 
         foreach (var message in messages)
         {
-            messageDtos.Add(new GetChatMessageDto
+            messageDtos.Add(new ChatMessageDto
             {
                 isSenderMessage = accountId == message.SenderId,
                 Text = message.Text,

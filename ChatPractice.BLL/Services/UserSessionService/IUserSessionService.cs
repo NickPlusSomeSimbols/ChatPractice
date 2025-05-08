@@ -1,8 +1,7 @@
 ﻿using Ardalis.Result;
 using ChatPractice.DAL.Models;
-using ChatPractice.DTO;
-using ChatPractice.DTO.User;
-using ChatPractice.DTO.UserSession;
+using ChatPractice.DTO.Dtos.User;
+using ChatPractice.DTO.Dtos.UserSession;
 
 namespace ChatPractice.BLL.Services.UserSessionService;
 

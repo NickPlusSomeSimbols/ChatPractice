@@ -1,4 +1,4 @@
-﻿namespace ChatPractice.DTO;
+﻿namespace ChatPractice.DTO.Dtos.UserSession;
 
 public class RegisterDto
 {

@@ -4,7 +4,7 @@ using ChatPractice.BLL.Services.UserSessionService;
 using ChatPractice.DAL;
 using ChatPractice.DAL.Models;
 using ChatPractice.DAL.Repository;
-using ChatPractice.DTO.Message;
+using ChatPractice.DTO.Dtos.Message;
 using Microsoft.EntityFrameworkCore;
 
 namespace ChatPractice.BLL.Services.MessageService;
@@ -32,7 +32,7 @@ public class ChatService : IChatService
 
         return Result.Success();
     }
-    public async Task<Result<List<GetChatMessageDto>>> GetChatMessagesAsync(long recieverId)
+    public async Task<Result<List<ChatMessageDto>>> GetChatMessagesAsync(long recieverId)
     {
         var currentUserId = _userSessionService.CurrentUser.Id;
 

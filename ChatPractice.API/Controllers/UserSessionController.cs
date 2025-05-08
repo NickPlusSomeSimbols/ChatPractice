@@ -1,11 +1,10 @@
 using Ardalis.Result;
 using ChatPractice.BLL.Services.UserSessionService;
 using ChatPractice.BLL.Services.UserService;
-using ChatPractice.DTO;
-using ChatPractice.DTO.UserSession;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authorization;
 using ChatPractice.BLL.Attributes;
+using ChatPractice.DTO.Dtos.UserSession;
 
 namespace ChatPractice.API.Controllers;
 [ApiController]
