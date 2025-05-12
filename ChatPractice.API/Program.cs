@@ -3,8 +3,10 @@ using ChatPractice.BLL.Helpers;
 using ChatPractice.BLL.Services.Middlewares;
 using ChatPractice.DAL;
 using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authentication.OAuth;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -18,8 +20,8 @@ builder.Services.ConfigureServices();
 
 builder.Services.AddDbContext<AppDbContext>(options => options.UseNpgsql(builder.Configuration.GetConnectionString("DockerPostgres")));
 
-builder.Services.AddAuthentication("MyScheme")
-.AddScheme<AuthenticationSchemeOptions, UserAuthenticationHandler>("MyScheme", options => { });
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme);
+//.AddScheme<AuthenticationSchemeOptions, UserAuthenticationHandler>("MyScheme", options => { });
 
 var app = builder.Build();
 
